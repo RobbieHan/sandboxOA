@@ -57,6 +57,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sandboxOA.urls'
 
+AUTHENTICATION_BACKENDS = (
+    'system.views_user.UserBackend',
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -134,3 +138,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = '/login/'
