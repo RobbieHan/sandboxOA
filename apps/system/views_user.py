@@ -7,7 +7,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 
+
 from .forms import LoginForm
+from .mixin import LoginRequiredMixin
 
 User = get_user_model()
 
@@ -22,7 +24,7 @@ class UserBackend(ModelBackend):
             return None
 
 
-class IndexView(View):
+class IndexView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'index.html')
