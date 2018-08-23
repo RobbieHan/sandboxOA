@@ -84,7 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sandboxOA',
-        'HOST': '172.168.100.12',
+        'HOST': '172.16.2.105',
         'USER': 'ddadmin',
         'PASSWORD': '1234@abcd.com',
         'PORT': '3306'
