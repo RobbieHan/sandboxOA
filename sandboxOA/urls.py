@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.static import serve
+from sandboxOA.settings import MEDIA_ROOT
+
 from system.views_user import IndexView, LoginView
 
 urlpatterns = [
@@ -22,4 +25,6 @@ urlpatterns = [
 
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+
 ]
