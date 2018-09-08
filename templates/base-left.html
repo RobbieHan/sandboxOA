@@ -24,28 +24,17 @@
         <li class="header">{{ request.user }}</li>
         <!-- Optionally, you can add icons to the links -->
 
-      {% for menu in request.reveal_menu %}
-        {% if not menu.url %}
-        <li class="treeview" id="{{ menu.code }}">
-          <a href=""><i class="{{ menu.icon }}"></i> <span>{{ menu.title }}</span>
+        <li class="treeview" id="">
+          <a href="#"><i class="fa fa-calendar"></i> 工作日报<span></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            {% for sub in  menu.sub_menu %}
-            <li id="{{ sub.code }}">
-                <a href="{{ sub.url }}"><i class="fa fa-caret-right"></i>{{ sub.title }}</a></li>
-            {% endfor %}
+            <li id=""><a href="#"><i class="fa fa-caret-right"></i> 我的日报</a></li>
+            <li id=""><a href="#"><i class="fa fa-caret-right"></i> 下属日报</a></li>
           </ul>
         </li>
-        {% else %}
-          <li id="{{ menu.code }}">
-          <a href="{{ menu.url }}"><i class="{{ menu.icon }}"></i> <span>{{ menu.title }}</span>
-          </a>
-        </li>
-        {% endif %}
-      {% endfor %}
 
       </ul>
       <!-- /.sidebar-menu -->
