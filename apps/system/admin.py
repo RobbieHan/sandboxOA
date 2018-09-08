@@ -3,18 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 from . import models
 
-<<<<<<< HEAD
-from django.contrib.auth import get_user_model
-
-
-User = get_user_model()
-
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['username', 'name', 'mobile', 'email']
-
-
-admin.site.register(User, UserProfileAdmin)
-=======
 User = get_user_model()
 
 
@@ -32,4 +20,4 @@ class UserProfileAdmin(UserAdmin):
 
 admin.site.register(User, UserProfileAdmin)
 admin.site.register(models.Structure)
->>>>>>> dev
+
