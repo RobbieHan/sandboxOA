@@ -16,47 +16,43 @@
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
-                </div>
-            </form>
-            <!-- /.search form -->
+        </div>
+      </form>
+      <!-- /.search form -->
 
-            <!-- Sidebar Menu -->
-            <ul class="sidebar-menu">
-                <li class="header">{{ request.user }}</li>
-                <!-- Optionally, you can add icons to the links -->
-                    <li class="treeview" id="WORK-CALENDAR">
-                            <a href="#"><i class="fa fa-dashboard"></i> <span>工作日报</span>
-                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li id="MYCALENDAR"><a href="#"><i class="fa fa-caret-right"></i>我的日报</a></li>
-                                <li id="SHARECALENDAR"><a href="#"><i class="fa fa-caret-right"></i>下属日报</a></li>
-                            </ul>
-                        </li>
-            </ul>
-            <!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">{{ request.user }}</li>
+        <!-- Optionally, you can add icons to the links -->
 
-    <!-- Content Header (Page header) -->
+        <li class="treeview" id="">
+          <a href="#"><i class="fa fa-calendar"></i> 工作日报<span></span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li id=""><a href="#"><i class="fa fa-caret-right"></i> 我的日报</a></li>
+            <li id=""><a href="#"><i class="fa fa-caret-right"></i> 下属日报</a></li>
+          </ul>
+        </li>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <section class="content-header margin-bottom">
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i>办公平台</a></li>
-                <li class="active">首页</li>
-            </ol>
-        </section>
-
-        {% block content %}
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
 
 
-        {% endblock %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
 
-    </div>
-    <!-- /.content-wrapper -->
+  {% block content %}
+
+
+  {% endblock %}
+
+</div>
+<!-- /.content-wrapper -->
 
 {% endblock %}

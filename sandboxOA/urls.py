@@ -14,17 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
 from django.views.static import serve
 from sandboxOA.settings import MEDIA_ROOT
-
-from system.views_user import IndexView, LoginView
+from django.contrib import admin
+from system.views_user import IndexView, LoginView, LogoutView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+<<<<<<< HEAD
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
 
 ]

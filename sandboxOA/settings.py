@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'system',
+    'dailyreport',
 
 ]
 
@@ -56,6 +57,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'sandboxOA.urls'
+
+AUTHENTICATION_BACKENDS = (
+    'system.views_user.UserBackend',
+)
 
 TEMPLATES = [
     {
@@ -82,12 +87,9 @@ WSGI_APPLICATION = 'sandboxOA.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sandboxOA',
-        'HOST': '172.16.2.105',
-        'USER': 'ddadmin',
-        'PASSWORD': '1234@abcd.com',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
 
@@ -134,3 +136,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = '/login/'

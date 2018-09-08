@@ -58,7 +58,7 @@ class UserProfile(AbstractUser):
     mobile = models.CharField(max_length=11, default="", verbose_name="手机号码")
     email = models.EmailField(max_length=50, verbose_name="邮箱")
     image = models.ImageField(upload_to="image/%Y/%m", default="image/default.jpg",
-                              max_length=100, null=True, blank=True)
+                              max_length=100, null=True, blank=True, verbose_name='头像')
     department = models.ForeignKey("Structure", null=True, blank=True, verbose_name="部门")
     post = models.CharField(max_length=50, null=True, blank=True, verbose_name="职位")
     superior = models.ForeignKey("self", null=True, blank=True, verbose_name="上级主管")
