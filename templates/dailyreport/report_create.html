@@ -1,0 +1,125 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="box box-danger">
+        <form class="form-horizontal" id="addForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name='user' value="{{ request.user.id }}"/>
+            <p class="box-body">
+            <fieldset>
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">日报类型</label>
+                    <div class="col-sm-3">
+                        <select class="form-control select2" style="width:100%;" name="category">
+                            {% for category in category_all %}
+                                <option value="{{ category.key }}">{{ category.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label">添加关注</label>
+                    <div class="col-sm-3">
+                        <select class="form-control select2" multiple="multiple" name="attention" data-placeholder="添加关注"
+                                style="width: 100%;">
+                            {% for attention in user_all %}
+                            <option value="{{ attention.id }}">{{ attention.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">开始时间</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control pull-right form_datetime" name="start_time" readonly >
+                    </div>
+                    <label class="col-sm-2 control-label">结束时间</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control pull-right form_datetime" name="end_time" readonly />
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">报告内容</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" name="content" rows="5"></textarea>
+                    </div>
+                </div>
+                <p>
+                    <small class="text-danger margin-l-5">* 上级和关注人可以查看本条报告内容</small>
+                </p>
+            </fieldset>
+
+    <div class="box-footer ">
+
+        <div class="row span7 text-center ">
+            <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置</button>
+            <button type="button" id="btnSave" class="btn btn-info margin-right ">保存</button>
+        </div>
+    </div>
+
+    </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script type="text/javascript">
+
+        $("#btnSave").click(function () {
+            var data = $("#addForm").serialize();
+            $.ajax({
+                type: $("#addForm").attr('method'),
+                url: "{% url 'myreport-create' %}",
+                data: data,
+                cache: false,
+                success: function (msg) {
+                    if (msg.result) {
+                        layer.alert('数据保存成功！', {icon: 1}, function (index) {
+                            parent.location.reload();
+                        });
+                    } else {
+                        layer.alert('数据保存失败,请将信息填写完整！', {icon: 5});
+                        //$('errorMessage').html(msg.message)
+                    }
+                    return;
+                }
+            });
+        });
+
+
+        /*点取消刷新新页面*/
+        $("#btnCancel").click(function () {
+            window.location.reload();
+
+        });
+
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            //minView: 'month',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            //format: 'yyyy-mm-dd hh:ss'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        // select2
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+    </script>
+
+{% endblock %}

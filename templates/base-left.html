@@ -24,14 +24,14 @@
  <ul class="sidebar-menu">
         <li class="header">{{ request.user.name }}</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="treeview">
+        <li class="treeview" id="DailyReport">
           <a href="#"><i class="fa fa-calendar"></i> <span>工作日报</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-caret-right"></i>我的日报</a></li>
+            <li id="MyReport"><a href="{% url 'myreport' %}"><i class="fa fa-caret-right"></i>我的日报</a></li>
             <li><a href="#"><i class="fa fa-caret-right"></i>下属日报</a></li>
           </ul>
         </li>

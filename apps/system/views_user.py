@@ -51,7 +51,7 @@ class LoginView(View):
                     login(request, user)
                     return HttpResponseRedirect(redirect_to)
                 else:
-                    msg = "用户为激活！"
+                    msg = "用户未激活！"
                     ret = {"msg": msg, "login_form": login_form}
                     return render(request, 'system/users/login.html', ret)
             else:

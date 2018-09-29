@@ -18,6 +18,7 @@ from django.views.static import serve
 from sandboxOA.settings import MEDIA_ROOT
 from django.contrib import admin
 from system.views_user import IndexView, LoginView, LogoutView
+from dailyreport import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,5 +27,8 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
+
+    url(r'^myreport/$', views.MyReportView.as_view(), name='myreport'),
+    url(r'^myreport/create$', views.ReportCreateView.as_view(), name='myreport-create'),
 
 ]
