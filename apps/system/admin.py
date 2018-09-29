@@ -8,7 +8,7 @@ User = get_user_model()
 
 class UserProfileAdmin(UserAdmin):
 
-    list_display = ['name', 'username', 'mobile', 'email', 'gender']
+    list_display = ['id', 'name', 'username', 'mobile', 'email', 'gender']
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('用户信息', {'fields': ('name', 'birthday', 'gender', 'image')}),
