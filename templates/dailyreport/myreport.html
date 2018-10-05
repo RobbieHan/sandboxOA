@@ -100,6 +100,18 @@
                 },
                 //设置是否显示周六和周日，设为false则不显示
                 weekends: true,
+
+                dayClick: function (date, view) {
+                    layer.open({
+                        type: 2,
+                        title: '新建日报',
+                        shadeClose: false,
+                        maxmin: true,
+                        area: ['800px', '500px'],
+                        content: "/myreport/create?calDate=" + date.format("YYYY-MM-DD H:mm"),
+                    });
+
+                },
                 events: [
                     {% for my_report in my_report_all %}
                         {

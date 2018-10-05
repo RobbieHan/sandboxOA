@@ -36,11 +36,11 @@
                 <div class="form-group has-feedback">
                     <label class="col-sm-2 control-label">开始时间</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control pull-right form_datetime" name="start_time" readonly >
+                        <input type="text" class="form-control pull-right form_datetime" name="start_time" value="{{ start_time | date:'Y-m-d H:i' }}" readonly />
                     </div>
                     <label class="col-sm-2 control-label">结束时间</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control pull-right form_datetime" name="end_time" readonly />
+                        <input type="text" class="form-control pull-right form_datetime" name="end_time" value="{{ end_time | date:'Y-m-d H:i' }}" readonly />
                     </div>
                 </div>
                 <div class="form-group has-feedback">

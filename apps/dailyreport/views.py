@@ -1,4 +1,6 @@
 import json
+import re
+from datetime import datetime, timedelta
 
 from django.shortcuts import render
 from django.views.generic.base import View
@@ -29,6 +31,13 @@ class ReportCreateView(LoginRequiredMixin, View):
         user_all = User.objects.exclude(username__in=['admin', request.user.username])
         ret['category_all'] = category_all
         ret['user_all'] = user_all
+        if 'calDate' in request.GET and request.GET['calDate']:
+            calDate = re.split('[-: ]', request.GET['calDate'])
+            Y, M, D, h, m = map(int, calDate)
+            start_time = datetime(Y, M, D, h, m)
+            end_time = start_time + timedelta(hours=1)
+            ret['start_time'] = start_time
+            ret['end_time'] = end_time
         return render(request, 'dailyreport/report_create.html', ret)
 
     def post(self, request):
@@ -38,3 +47,7 @@ class ReportCreateView(LoginRequiredMixin, View):
             daily_report_form.save()
             res['result'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+
+
