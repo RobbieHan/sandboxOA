@@ -30,5 +30,6 @@ urlpatterns = [
 
     url(r'^myreport/$', views.MyReportView.as_view(), name='myreport'),
     url(r'^myreport/create$', views.ReportCreateView.as_view(), name='myreport-create'),
+    url(r'^myreport/detail$', views.ReportDetailView.as_view(), name='myreport-detail'),
 
 ]

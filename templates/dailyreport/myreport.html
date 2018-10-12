@@ -112,6 +112,17 @@
                     });
 
                 },
+                eventClick: function (calEvent, jsEvent, view) {
+                    layer.open({
+                        type: 2,
+                        title: '日报详情',
+                        shadeClose: false,
+                        maxmin: true,
+                        area: ['800px', '460px'],
+                        content: "/myreport/detail?id=" + calEvent.id,
+
+                    });
+                },
                 events: [
                     {% for my_report in my_report_all %}
                         {

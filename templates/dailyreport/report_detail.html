@@ -1,0 +1,146 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <div class="user-block">
+                <img class="img-circle" src="/media/{{ report.user.image }}" alt="User Image">
+                <span class="username"><a href="#">{{ report.user.name }}</a></span>
+                <span class="description">创建时间: {{ report.add_time }}</span>
+            </div>
+            <!-- /.user-block -->
+            <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+                    <i class="fa fa-circle-o"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <form class="form-horizontal" id="addForm" method="post">
+            {% csrf_token %}
+            <p class="box-body">
+            <fieldset>
+                <input type="hidden" name="user" value="{{ request.user.id }}">
+                <input type="hidden" name="id" value="{{ report.id }}">
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">日报类型</label>
+                    <div class="col-sm-3">
+                        <select class="form-control select2" style="width:100%;" name="category">
+                            <option value="{{ report.category }}">{{ report.get_category_display }}</option>
+                            {% for category in category_all %}
+                                <option value="{{ category.key }}">{{ category.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label">添加关注</label>
+                    <div class="col-sm-3">
+                        <select class="form-control select2" multiple="multiple" name="attention"
+                                data-placeholder="添加关注"
+                                style="width: 100%;">
+                            {% for attention in user_all %}
+                                <option value="{{ attention.id }}" {% if attention in report.attention.all %}selected="selected" {% endif %}>{{ attention.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">开始时间</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control pull-right form_datetime" name="start_time"
+                               readonly value="{{ report.start_time |date:'Y-m-d H:i' }}"/>
+                    </div>
+                    <label class="col-sm-2 control-label">结束时间</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control pull-right form_datetime" name="end_time" readonly
+                               value="{{ report.end_time |date:'Y-m-d H:i' }}"/>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">报告内容</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" name="content" rows="5">{{ report.content }}</textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="box-footer ">
+
+                <div class="row span7 text-center ">
+                    {% ifequal request.user.id  report.user_id %}
+                        <button type="button" id="btnSave" class="btn btn-info margin-right ">保存修改</button>
+                    {% endifequal %}
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script type="text/javascript">
+
+        $("#btnSave").click(function () {
+            var data = $("#addForm").serialize();
+            $.ajax({
+                type: $("#addForm").attr('method'),
+                url: "{% url 'myreport-detail' %}",
+                data: data,
+                cache: false,
+                success: function (msg) {
+                    if (msg.result) {
+                        layer.alert('数据保存成功！', {icon: 1}, function (index) {
+                            parent.location.reload();
+                        });
+                    } else {
+                        layer.alert('数据保存失败,请将信息填写完整！', {icon: 5});
+                        //$('errorMessage').html(msg.message)
+                    }
+                    return;
+                }
+            });
+        });
+
+
+        /*点取消刷新新页面*/
+        $("#btnCancel").click(function () {
+            window.location.reload();
+
+        });
+
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            //minView: 'month',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            //format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        // select2
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+
+    </script>
+
+{% endblock %}
